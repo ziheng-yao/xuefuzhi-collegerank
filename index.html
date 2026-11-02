@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="description" content="学府志：学科实力、综合实力、城市能级、生活质量四个维度，自定义权重，按你的标准给中国大学排名。">
+<title>学府志 · 按你的标准，给大学排名</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="学府志 · 按你的标准，给大学排名">
+<meta property="og:description" content="四个维度，自定义权重，按你的标准给中国大学排名。">
+<meta property="og:image" content="og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="学府志 · 按你的标准，给大学排名">
+<meta name="twitter:description" content="四个维度，自定义权重，按你的标准给中国大学排名。">
+<meta name="twitter:image" content="og.png">
+<style>
+  :root{
+    --paper:#F8F7F2; --paper-2:#ECE9E0; --ink:#282B29; --ink-2:#575C56; --ink-3:#898A7F;
+    --brick:#A64F3C; --brick-2:#853D30; --olive:#657866; --gold:#B18A55;
+    --linen:#DEDCD2; --rule:#E5E2D8; --track:#D2CFC4;
+    --serif:"Source Han Serif SC","Noto Serif SC","Songti SC","SimSun",serif;
+    --sans:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+    --num:"Bahnschrift","DIN Alternate","Segoe UI",sans-serif;
+    --brand:"STKaiti","华文楷体","KaiTi","楷体",serif;
+    --d1:#A64F3C; --d2:#657866; --d3:#64849A; --d4:#B18A55;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:15px;line-height:1.7;
+    background-image:repeating-linear-gradient(180deg,rgba(40,43,41,.008) 0 1px,transparent 1px 4px);
+  }
+  ::selection{background:var(--brick);color:var(--paper)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 22px}
+
+  /* 顶部 */
+  .top{padding:34px 0 0}
+  .top-row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+  .brandbox{display:flex;align-items:center;gap:12px}
+  .brandbox .dot{width:9px;height:9px;background:var(--brick);flex-shrink:0}
+  .brandbox .zh{font-family:var(--brand);font-size:26px;letter-spacing:.2em}
+  .brandbox .en{display:block;font-size:7.5px;letter-spacing:.36em;color:var(--ink-3);text-transform:uppercase;margin-top:3px}
+  .top-nav{display:flex;gap:20px;font-size:12.5px;color:var(--ink-2)}
+  .top-nav a:hover{color:var(--brick)}
+  .top-nav a.on{color:var(--brick);font-weight:600}
+  .top-issue{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);text-align:right;line-height:1.9}
+  .top-rule{height:2px;background:var(--ink);margin-top:14px}
+  .top-sub{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);padding-top:7px}
+
+  /* 封面：左侧宣言 + 右侧档案卡 */
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:clamp(30px,5vw,72px);padding:clamp(40px,6vw,86px) 22px clamp(40px,6vw,80px);align-items:center}
+  .hero-copy .kick{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3)}
+  .hero-copy h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,5.4vw,76px);line-height:1.1;letter-spacing:.01em;margin:18px 0 0}
+  .hero-copy h1 em{font-style:normal;color:var(--brick)}
+  .hero-copy .lede{max-width:440px;color:var(--ink-2);font-size:14px;line-height:1.95;margin-top:24px}
+  .hero-actions{display:flex;align-items:center;gap:22px;margin-top:30px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);font-size:13px;letter-spacing:.05em;padding:12px 20px;transition:background .18s,transform .18s}
+  .btn:hover{background:var(--brick);transform:translateY(-1px)}
+  .btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+  .ghost{font-size:12.5px;color:var(--ink-2);border-bottom:1px solid var(--ink-3);padding-bottom:2px}
+  .ghost:hover{color:var(--brick);border-color:var(--brick)}
+
+  /* 档案卡 */
+  .card{position:relative;background:var(--paper);border:1px solid var(--ink);padding:30px 30px 26px;box-shadow:18px 18px 0 rgba(40,43,41,.06)}
+  .card::before{content:"";position:absolute;left:26px;top:-9px;width:16px;height:16px;border-radius:50%;background:var(--paper-2);border:1px solid var(--ink)}
+  .card::after{content:"";position:absolute;inset:7px;border:1px solid var(--rule);pointer-events:none}
+  .card-top{display:flex;justify-content:space-between;align-items:baseline;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);padding-bottom:12px;border-bottom:1px solid var(--ink)}
+  .card-top b{font-family:var(--num);font-size:11px;letter-spacing:.06em;color:var(--ink)}
+  .card h2{font-family:var(--serif);font-size:clamp(32px,3.4vw,44px);font-weight:900;letter-spacing:.03em;margin:20px 0 0;line-height:1.1}
+  .card .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .card .tags span{font-size:10px;letter-spacing:.12em;color:var(--brick);border:1px solid rgba(166,79,60,.35);padding:1px 7px;border-radius:2px}
+  .card .tags span.plain{color:var(--ink-3);border-color:var(--linen)}
+  .card .card-meta{font-size:11.5px;color:var(--ink-3);margin-top:10px;letter-spacing:.02em}
+  .card-dims{margin-top:24px;display:flex;flex-direction:column;gap:16px}
+  .cd{display:grid;grid-template-columns:76px minmax(0,1fr) 44px;align-items:center;gap:12px}
+  .cd .n{font-size:12px;color:var(--ink-2)}
+  .cd .track{height:3px;background:var(--track);position:relative}
+  .cd .track i{position:absolute;left:0;top:0;height:100%;display:block}
+  .cd .v{font-family:var(--num);font-size:13px;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+  .card-score{display:flex;align-items:baseline;gap:10px;margin-top:26px;padding-top:18px;border-top:1px solid var(--ink)}
+  .card-score .v{font-family:var(--num);font-size:56px;font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--brick);font-variant-numeric:tabular-nums}
+  .card-score .u{font-size:11px;color:var(--ink-3);letter-spacing:.18em;text-transform:uppercase}
+  .card .foot{font-size:10.5px;color:var(--ink-3);margin-top:14px;letter-spacing:.02em}
+  .shuffle{display:block;margin-top:10px;border:0;background:none;color:var(--brick);font:inherit;font-size:10.5px;letter-spacing:.04em;cursor:pointer;border-bottom:1px solid currentColor;padding:0 0 1px}
+  .shuffle:hover{color:var(--brick-2)}
+  .stamp{position:absolute;right:24px;bottom:20px;transform:rotate(-8deg);border:2px solid var(--brick);color:var(--brick);font-family:var(--brand);font-size:13px;letter-spacing:.14em;padding:6px 9px;line-height:1.2;text-align:center;opacity:.85}
+  .stamp small{display:block;font-family:var(--sans);font-size:7px;letter-spacing:.18em;margin-top:2px}
+
+  /* 现场演示：权重滑杆 + Live Top 5 */
+  .lab{border-top:2px solid var(--ink);background:var(--paper-2)}
+  .lab-wrap{display:grid;grid-template-columns:minmax(280px,340px) minmax(0,1fr);gap:clamp(28px,5vw,64px);padding:clamp(40px,5vw,64px) 22px}
+  .lab-title{font-family:var(--serif);font-size:clamp(24px,2.6vw,32px);font-weight:900;line-height:1.3}
+  .lab-sub{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.85;max-width:430px}
+  .lab-ctrl{margin-top:28px}
+  .wrow{display:flex;align-items:center;gap:12px;margin:13px 0}
+  .wrow .wname{width:70px;font-size:13px;color:var(--ink-2);flex:none}
+  .wrow input[type=range]{flex:1;min-width:0}
+  .wrow .wv{width:36px;text-align:right;font-family:var(--num);font-size:13px;color:var(--brick);font-variant-numeric:tabular-nums}
+  .lab-list{min-width:0}
+  .lab-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:12px}
+  .lab-head span{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3)}
+  .lab-head b{font-size:12.5px;color:var(--ink-2);font-weight:600}
+  .hit{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--rule)}
+  .hit .n{font-family:var(--num);font-size:22px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .hit .nm{font-family:var(--serif);font-size:17px;font-weight:900;letter-spacing:.02em}
+  .hit .meta{font-size:11px;color:var(--ink-3);margin-top:3px}
+  .hit .sc{font-family:var(--num);font-size:22px;font-weight:700;color:var(--brick);font-variant-numeric:tabular-nums}
+  .hit .sc small{font-size:10px;font-weight:500;color:var(--ink-3);margin-left:2px}
+  .lab-note{font-size:11px;color:var(--ink-3);margin-top:16px;line-height:1.8}
+  .lab-note a{color:var(--ink-2);text-decoration:underline;text-underline-offset:2px}
+  .lab-note a:hover{color:var(--brick)}
+
+  /* 滑块 */
+  input[type=range]{-webkit-appearance:none;appearance:none;height:22px;background:transparent;cursor:pointer;--fill:50%}
+  input[type=range]::-webkit-slider-runnable-track{height:3px;background:linear-gradient(to right,var(--brick) var(--fill),var(--track) var(--fill))}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;margin-top:-4px;border-radius:2px;background:var(--paper);border:2px solid var(--brick)}
+  input[type=range]::-moz-range-track{height:3px;background:var(--track)}
+  input[type=range]::-moz-range-progress{height:3px;background:var(--brick)}
+  input[type=range]::-moz-range-thumb{width:11px;height:11px;border-radius:2px;background:var(--paper);border:2px solid var(--brick)}
+  input[type=range]:focus-visible{outline:none}
+  input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(166,79,60,.18)}
+
+  /* 标尺区 */
+  .scales{border-top:2px solid var(--ink);background:var(--paper-2)}
+  .scales-wrap{padding:clamp(40px,5vw,64px) 22px}
+  .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-bottom:34px}
+  .sec-head h2{font-family:var(--serif);font-size:clamp(24px,2.6vw,32px);font-weight:900}
+  .sec-head p{font-size:12px;color:var(--ink-3);max-width:460px;line-height:1.85}
+  .scale-grid{display:grid;grid-template-columns:150px minmax(0,1fr) 60px;gap:0;border-top:1px solid var(--ink)}
+  .scale-grid .head{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);padding:10px 0;border-bottom:1px solid var(--rule)}
+  .scale-grid .head:nth-child(2){text-align:center}
+  .scale-grid .head:last-child{text-align:right}
+  .srow{display:contents}
+  .srow .lab{padding:20px 0;border-bottom:1px solid var(--rule);font-family:var(--serif);font-size:17px;font-weight:900}
+  .srow .lab span{display:block;font-family:var(--sans);font-size:10.5px;font-weight:400;color:var(--ink-3);letter-spacing:.02em;margin-top:2px}
+  .srow .axis{border-bottom:1px solid var(--rule);align-self:center;position:relative;height:26px}
+  .axis .line{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--ink-3);opacity:.5}
+  .axis .tick{position:absolute;top:50%;width:1px;height:7px;background:var(--ink-3);transform:translateY(-50%)}
+  .axis .tick span{position:absolute;top:9px;left:50%;transform:translateX(-50%);font-family:var(--num);font-size:9px;color:var(--ink-3);white-space:nowrap}
+  .axis .mark{position:absolute;top:50%;width:13px;height:13px;background:var(--paper);border:2px solid var(--ink);transform:translate(-50%,-50%);border-radius:50%}
+  .axis .fill{position:absolute;left:0;top:50%;height:3px;transform:translateY(-50%)}
+  .srow .val{padding:20px 0;border-bottom:1px solid var(--rule);text-align:right;font-family:var(--num);font-size:15px;color:var(--ink-2);font-variant-numeric:tabular-nums;align-self:center}
+  .scales .foot{font-size:11px;color:var(--ink-3);margin-top:16px;line-height:1.8}
+  .scales .foot b{color:var(--ink-2);font-weight:600}
+
+  /* 档案索引 */
+  .index{padding:clamp(46px,6vw,80px) 22px 0}
+  .idx-table{border-top:2px solid var(--ink)}
+  .idx-row{display:grid;grid-template-columns:92px minmax(0,1fr) 92px minmax(0,1fr) 74px;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .idx-head{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);padding:10px 0;border-bottom:1px solid var(--rule)}
+  .idx-row .no{font-family:var(--num);font-size:12px;color:var(--ink-3);letter-spacing:.04em}
+  .idx-row .nm{font-family:var(--serif);font-size:17px;font-weight:900}
+  .idx-row .nm span{display:block;font-family:var(--sans);font-size:10.5px;font-weight:400;color:var(--ink-3);margin-top:2px}
+  .idx-row .city{font-size:11.5px;color:var(--ink-3)}
+  .idx-row .mini{display:flex;height:6px;background:var(--paper-2)}
+  .idx-row .mini i{display:block;height:100%}
+  .idx-row .sc{text-align:right;font-family:var(--num);font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+  .idx-row .sc small{font-size:9.5px;font-weight:500;color:var(--ink-3);margin-left:2px}
+  .idx-foot{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
+  .idx-foot p{font-size:11px;color:var(--ink-3)}
+  .idx-foot a{font-size:12.5px;color:var(--brick);border-bottom:1px solid var(--brick);padding-bottom:2px}
+
+  /* 方法带 */
+  .band{background:var(--ink);color:var(--paper);margin-top:clamp(44px,6vw,72px)}
+  .band-wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:0;padding:clamp(34px,4vw,52px) 22px}
+  .band .lead{padding-right:30px}
+  .band .lead h2{font-family:var(--serif);font-size:clamp(20px,2.2vw,26px);font-weight:900;line-height:1.4}
+  .band .lead p{font-size:11.5px;color:rgba(248,247,242,.64);margin-top:12px;line-height:1.85;max-width:280px}
+  .band .col{padding:0 24px;border-left:1px solid rgba(248,247,242,.18)}
+  .band .col .v{font-family:var(--num);font-size:clamp(26px,2.6vw,34px);font-weight:600;font-variant-numeric:tabular-nums}
+  .band .col .l{font-size:10.5px;color:rgba(248,247,242,.62);margin-top:6px;line-height:1.6}
+
+  /* 收尾 */
+  .close{padding:clamp(48px,6vw,90px) 22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:end;border-top:2px solid var(--ink);margin-top:clamp(40px,5vw,64px)}
+  .close h2{font-family:var(--serif);font-size:clamp(28px,4vw,52px);font-weight:900;line-height:1.2}
+  .close h2 em{font-style:normal;color:var(--brick)}
+  .close .side{text-align:right;font-size:11px;color:var(--ink-3);line-height:2}
+  .close .side b{color:var(--ink);font-weight:600}
+
+  .band-foot{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid rgba(248,247,242,.16);padding:18px 22px 28px;font-size:10.5px;color:rgba(248,247,242,.55);letter-spacing:.04em}
+  .band-foot .fb{font-size:13px;color:var(--paper);letter-spacing:.06em;white-space:nowrap}
+  .band-foot .fb i{font-style:normal;font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(248,247,242,.42);margin-left:9px}
+  .band-foot .fc{white-space:nowrap}
+  .band-foot .foot-legal{display:flex;flex-direction:column;gap:6px;align-items:flex-end;text-align:right}
+
+  [data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  [data-reveal].in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}}
+
+  @media (max-width:1080px){
+    .hero{grid-template-columns:minmax(0,1fr);gap:40px}
+    .hero-copy .lede{max-width:none}
+    .lab-wrap{grid-template-columns:1fr;gap:30px}
+    .band-wrap{grid-template-columns:1fr 1fr;row-gap:26px}
+    .band .col{padding:0 0 0 18px}
+  }
+  @media (max-width:820px){
+    .top-row{flex-wrap:wrap;align-items:flex-start}
+    .top-issue{display:none}
+    .hero{padding-top:34px}
+    .card{padding:22px 20px}
+    .card-score .v{font-size:44px}
+    .stamp{right:14px;bottom:14px;font-size:11px}
+    .scale-grid{grid-template-columns:110px minmax(0,1fr) 44px}
+    .srow .lab{font-size:15px;padding:16px 0}
+    .srow .val{padding:16px 0;font-size:13px}
+    .axis .tick span{display:none}
+    .idx-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"nm sc" "city sc";column-gap:12px;row-gap:4px;align-items:center}
+    .idx-row .no{display:none}
+    .idx-row .nm{grid-area:nm}
+    .idx-row .city{grid-area:city;font-size:10.5px}
+    .idx-row .sc{grid-area:sc;font-size:16px}
+    .idx-head{display:none}
+    .idx-row .mini{display:none}
+    .band-wrap{grid-template-columns:repeat(3,1fr);gap:16px}
+    .band .lead{grid-column:1/-1;padding-right:0}
+    .band .col{padding:0 10px}
+    .hit{grid-template-columns:30px minmax(0,1fr) auto;gap:10px}
+    .hit .meta{font-size:10px;line-height:1.6}
+    .close{grid-template-columns:1fr}
+    .close .side{text-align:left}
+    .foot-row{flex-direction:column;gap:8px}
+  }
+</style>
+</head>
+<body style="">
+
+<header class="top wrap">
+  <div class="top-row">
+    <a class="brandbox" href="index.html" aria-label="学府志首页">
+      <span class="dot"></span>
+      <span><span class="zh">学府志</span><span class="en">The Campus Chronicle</span></span>
+    </a>
+    <div class="top-issue">Issue 01 · 2026 秋季<br>档案 001 / <span id="issueRanked">525</span></div>
+    <nav class="top-nav" aria-label="主导航">
+      <a href="index.html" class="on">首页</a>
+      <a href="ranking.html">排名</a>
+      <a href="method.html">关于</a>
+    </nav>
+  </div>
+  <div class="top-rule"></div>
+  <div class="top-sub"><span>按你的标准，给大学排名</span><span>Independent College Guide</span></div>
+</header>
+
+<!-- 封面 -->
+<section class="hero wrap in" data-reveal="">
+  <div class="hero-copy">
+    <span class="kick">四维 · 自定义权重 · 真实数据</span>
+    <h1>按你的标准，<br>给大学<em>排名</em></h1>
+    <p class="lede">学府志不替你定义什么是好大学。我们把学科、综合、城市、生活四类数据摊开，把权重交到你手上——你更在意哪一面，名次就往哪一面走。</p>
+    <div class="hero-actions">
+      <a class="btn" href="ranking.html">开始排名 <span aria-hidden="true">→</span></a>
+      <a class="ghost" href="method.html">关于</a>
+    </div>
+  </div>
+
+  <!-- 档案卡：默认展示第 1 名 -->
+  <article class="card" id="dossier" aria-label="院校档案卡示例">
+    <div class="card-top"><span>院校档案 · Dossier</span><b id="dNo">No. 0001</b></div>
+    <h2 id="dName">清华大学</h2>
+    <div class="tags" id="dTags"><span>985</span><span>211</span><span>双一流</span></div>
+    <p class="card-meta" id="dMeta">北京 · 综合</p>
+    <div class="card-dims" id="dDims">
+      <div class="cd"><span class="n">学科实力</span><span class="track"><i style="width:99%;background:var(--d1)"></i></span><span class="v">98.9</span></div>
+      <div class="cd"><span class="n">综合实力</span><span class="track"><i style="width:99%;background:var(--d2)"></i></span><span class="v">99.4</span></div>
+      <div class="cd"><span class="n">城市能级</span><span class="track"><i style="width:100%;background:var(--d3)"></i></span><span class="v">99.7</span></div>
+      <div class="cd"><span class="n">生活质量</span><span class="track"><i style="width:100%;background:var(--d4)"></i></span><span class="v">99.8</span></div>
+    </div>
+    <div class="card-score"><span class="v" id="dScore">99.5</span><span class="u">综合分 · 均衡权重</span></div>
+    <p class="foot" id="dFoot">四维齐全 · 数据版本 v10</p>
+    <button type="button" class="shuffle" id="shuffleBtn">换一张 ↻</button>
+    <div class="stamp">第 01 期<small>学府志 · 院校档案</small></div>
+  </article>
+</section>
+
+<!-- 现场演示：拖动权重，看前五名怎么变 -->
+<section class="lab in" data-reveal="">
+  <div class="wrap lab-wrap">
+    <div>
+      <h2 class="lab-title">拖动权重，<br>看前五名怎么变</h2>
+      <p class="lab-sub">四个维度独立生效，不必凑成 100%。用的是完整数据（<span id="labRanked">525</span> 所四维齐全院校），不是演示假数。</p>
+      <div class="lab-ctrl" id="labCtrl">
+        <div class="wrow"><span class="wname">学科实力</span><input type="range" id="w0" min="0" max="100" step="5" value="50" aria-label="学科实力权重" style="--fill: 50%;"><span class="wv" id="v0">50</span></div>
+        <div class="wrow"><span class="wname">综合实力</span><input type="range" id="w1" min="0" max="100" step="5" value="50" aria-label="综合实力权重" style="--fill: 50%;"><span class="wv" id="v1">50</span></div>
+        <div class="wrow"><span class="wname">城市能级</span><input type="range" id="w2" min="0" max="100" step="5" value="50" aria-label="城市能级权重" style="--fill: 50%;"><span class="wv" id="v2">50</span></div>
+        <div class="wrow"><span class="wname">生活质量</span><input type="range" id="w3" min="0" max="100" step="5" value="50" aria-label="生活质量权重" style="--fill: 50%;"><span class="wv" id="v3">50</span></div>
+      </div>
+      <p class="lab-note">数据：学科评估 2017 · 软科 2026 · QS 2027 · 校友会 2026 · 城市年鉴 2025 · <a href="https://github.com/CollegesChat/university-information" target="_blank" rel="noopener">生活问卷 · colleges.chat</a></p>
+    </div>
+    <div class="lab-list">
+      <div class="lab-head"><span>Live Top 5</span><b id="labState">均衡权重</b></div>
+      <div id="labList"><div class="hit"><div class="n">—</div><div><div class="nm">数据未加载</div></div><div class="sc">—</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 标尺 -->
+<section class="scales in" data-reveal="">
+  <div class="wrap scales-wrap">
+    <div class="sec-head">
+      <h2>四个维度，是四把尺子</h2>
+      <p>每一维都是 0–100 的百分位，50 是参评院校中位。尺子上的刻度是真实分布的四分位点，圆圈是当前这张档案的位置。</p>
+    </div>
+    <div class="scale-grid" id="scaleGrid">
+      <div class="head">维度</div><div class="head">0 — 50 — 100</div><div class="head">清华</div>
+    </div>
+    <p class="foot">例：学科实力 98.9 表示它高于约 98.9% 的参评院校；城市能级 99.7 表示在 295 个地级市里，它的城市位置几乎在最前。<b>百分位不是绝对分</b>，不同维度的参考池不同。</p>
+  </div>
+</section>
+
+<!-- 档案索引 -->
+<section class="index wrap in" data-reveal="">
+  <div class="sec-head">
+    <h2>本期榜单 · 均衡权重</h2>
+    <p>四个维度各 25% 时的前十名。想按自己的标准看，去排名页调权重。</p>
+  </div>
+  <div class="idx-table" id="idxTable"></div>
+  <div class="idx-foot">
+    <p>名次会随权重改变；这里只是“均衡”这一个切面。</p>
+    <a href="ranking.html">看完整 <span id="chartRanked">525</span> 所 →</a>
+  </div>
+</section>
+
+<!-- 方法带 -->
+<section class="band in" data-reveal="">
+  <div class="wrap band-wrap">
+    <div class="lead">
+      <h2>好大学的标准，<br>从来不止一个。</h2>
+      <p>四类公开数据、一套百分位、你自己给的权重。学府志不发布“官方排名”。</p>
+    </div>
+    <div class="col"><div class="v" id="statTotal">1412</div><div class="l">所本科院校收入样本</div></div>
+    <div class="col"><div class="v" id="statRanked">525</div><div class="l">所四维齐全，进入排名</div></div>
+    <div class="col"><div class="v">6</div><div class="l">份数据源 + 1 份高校问卷</div></div>
+  </div>
+  <footer class="band-foot">
+    <span class="fb">学府志 <i>The Campus Chronicle</i></span>
+    <div class="foot-legal">
+      <span>排名仅供择校参考，不构成任何录取预测或志愿填报建议。</span>
+      <span class="fc">© 2026 学府志</span>
+    </div>
+  </footer>
+</section>
+
+
+
+
+
+
+<script src="data/schools.js"></script>
+<script>
+(function(){
+  "use strict";
+  // 入场
+  var els=[].slice.call(document.querySelectorAll("[data-reveal]"));
+  if ("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+    },{threshold:.07});
+    els.forEach(function(e){ io.observe(e); });
+  } else { els.forEach(function(e){ e.classList.add("in"); }); }
+
+  var SRC=window.__SCHOOLS__;
+  var SCHOOLS=SRC&&SRC.schools?SRC.schools:[];
+
+  function pct(v){ return Math.max(0,Math.min(100,v)); }
+
+  // 档案卡：用均衡权重的第 1 名
+  function balanced(s){
+    if(!s.d || s.d.some(function(v){return v==null;})) return null;
+    return (s.d[0]+s.d[1]+s.d[2]+s.d[3])/4;
+  }
+  function topList(n){
+    return SCHOOLS.map(function(s){ var v=balanced(s); return v==null?null:{s:s,v:v}; })
+      .filter(Boolean).sort(function(a,b){ return b.v-a.v; }).slice(0,n);
+  }
+
+  var top=topList(10);
+  function set(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+  function renderCard(s, score, no){
+    set("dNo","No. "+String(no).padStart(4,"0"));
+    set("dName",s.name);
+    var tags=document.getElementById("dTags");
+    if(tags){
+      var arr=(s.tags&&s.tags.length)?s.tags:(s.level&&s.level!=="普通"?[s.level]:[]);
+      tags.innerHTML=arr.map(function(t){ return '<span>'+t+'</span>'; }).join("");
+    }
+    set("dMeta",s.city+" · "+s.type);
+    var dims=[["学科实力","var(--d1)"],["综合实力","var(--d2)"],["城市能级","var(--d3)"],["生活质量","var(--d4)"]];
+    var box=document.getElementById("dDims");
+    box.innerHTML=dims.map(function(d,i){
+      return '<div class="cd"><span class="n">'+d[0]+'</span><span class="track"><i style="width:'+pct(s.d[i])+'%;background:'+d[1]+'"></i></span><span class="v">'+s.d[i].toFixed(1)+'</span></div>';
+    }).join("");
+    set("dScore",score.toFixed(1));
+    set("dFoot",(s.src&&s.src["综合"]==="校友会"?"综合·校友会补 · ":"")+(s.src&&s.src["学科"]==="软科"?"学科·软科补 · ":"")+"四维齐全 · 数据版本 v10");
+  }
+
+  if(top.length){
+    var s=top[0].s;
+    renderCard(s, top[0].v, 1);
+
+    // 索引表
+    var table=document.getElementById("idxTable");
+    var head='<div class="idx-head" style="display:grid;grid-template-columns:92px minmax(0,1fr) 92px minmax(0,1fr) 74px;gap:14px"><span>档号</span><span>院校</span><span>城市</span><span>四维构成</span><span style="text-align:right">综合分</span></div>';
+    var rows=top.map(function(x,i){
+      var s=x.s, bars=["var(--d1)","var(--d2)","var(--d3)","var(--d4)"];
+      return '<div class="idx-row"><div class="no">A-'+String(i+1).padStart(4,"0")+'</div>'+
+        '<div class="nm">'+s.name+'<span>'+(s.level||"")+' · '+s.type+'</span></div>'+
+        '<div class="city">'+s.city+'</div>'+
+        '<div class="mini">'+s.d.map(function(v,j){ return '<i style="width:'+(v/4).toFixed(1)+'%;background:'+bars[j]+'"></i>'; }).join("")+'</div>'+
+        '<div class="sc">'+x.v.toFixed(1)+'<small>分</small></div></div>';
+    }).join("");
+    table.innerHTML=head+rows;
+
+    // 标尺：四分位 + 清华位置
+    var grid=document.getElementById("scaleGrid");
+    var names=["学科实力","综合实力","城市能级","生活质量"];
+    var colors=["var(--d1)","var(--d2)","var(--d3)","var(--d4)"];
+    function quantile(arr,q){
+      var a=arr.slice().sort(function(x,y){return x-y;});
+      var pos=(a.length-1)*q, lo=Math.floor(pos), hi=Math.ceil(pos);
+      return a[lo]+(a[hi]-a[lo])*(pos-lo);
+    }
+    var html=grid.innerHTML;
+    names.forEach(function(nm,i){
+      var vals=SCHOOLS.map(function(s){ return s.d? s.d[i]:null; }).filter(function(v){ return v!=null; });
+      var q1=quantile(vals,.25), q2=quantile(vals,.5), q3=quantile(vals,.75);
+      var mark=pct(schoolVal(sTop(),i));
+      function schoolVal(x,i){ return x.d[i]; }
+      var ticks=[[q1,"25"],[q2,"50"],[q3,"75"]].map(function(t){
+        return '<span class="tick" style="left:'+t[0]+'%"><span>'+t[1]+'</span></span>';
+      }).join("");
+      html+='<div class="srow"><div class="lab">'+nm+'<span>百分位 0–100</span></div>'+
+        '<div class="axis"><span class="line"></span>'+ticks+
+        '<span class="fill" style="width:'+mark+'%;background:'+colors[i]+'"></span>'+
+        '<span class="mark" style="left:'+mark+'%"></span></div>'+
+        '<div class="val">'+s.d[i].toFixed(1)+'</div></div>';
+    });
+    grid.innerHTML=html;
+  }
+
+  function sTop(){ return top.length?top[0].s:null; }
+
+  // 现场演示：权重滑杆实时驱动 Live Top 5
+  var RANKED = SCHOOLS.filter(function(s){ return s.d && s.d.every(function(v){ return v!=null; }); });
+  var weights=[50,50,50,50];
+  function wscore(s){
+    var sum=0,wsum=0;
+    for(var i=0;i<4;i++){ if(weights[i]>0){ sum+=weights[i]*s.d[i]; wsum+=weights[i]; } }
+    return wsum? sum/wsum : null;
+  }
+  function wTop(n){
+    return RANKED.map(function(s){ return {s:s, v:wscore(s)}; })
+      .filter(function(x){ return x.v!=null; })
+      .sort(function(a,b){ return b.v-a.v; }).slice(0,n);
+  }
+  function wfmt(v){ return Math.round(v*10)/10; }
+  function renderLab(){
+    var list=document.getElementById("labList");
+    if(!list) return;
+    var data=wTop(5);
+    if(!data.length){ list.innerHTML='<div class="hit"><div class="n">—</div><div><div class="nm">数据未加载</div></div><div class="sc">—</div></div>'; return; }
+    list.innerHTML=data.map(function(x,i){
+      return '<div class="hit"><div class="n">'+String(i+1).padStart(2,"0")+'</div>'+
+        '<div><div class="nm">'+x.s.name+'</div><div class="meta">'+x.s.city+' · '+x.s.level+' · 学科 '+wfmt(x.s.d[0])+' / 综合 '+wfmt(x.s.d[1])+' / 城市 '+wfmt(x.s.d[2])+' / 生活 '+wfmt(x.s.d[3])+'</div></div>'+
+        '<div class="sc">'+wfmt(x.v)+'<small>分</small></div></div>';
+    }).join("");
+    var eq=weights.every(function(w){ return w===weights[0]; });
+    var st=document.getElementById("labState");
+    if(st) st.textContent = eq ? (weights[0]===50?"均衡权重":weights[0]+"% 同权") : "自定义权重";
+  }
+  for(var wi=0;wi<4;wi++){
+    (function(wi){
+      var el=document.getElementById("w"+wi), val=document.getElementById("v"+wi);
+      if(!el) return;
+      el.style.setProperty("--fill", el.value+"%");
+      el.addEventListener("input", function(){
+        weights[wi]=parseInt(el.value,10); val.textContent=weights[wi];
+        el.style.setProperty("--fill", el.value+"%");
+        renderLab();
+      });
+    })(wi);
+  }
+  renderLab();
+
+  var shuffleBtn=document.getElementById("shuffleBtn");
+  var lastIdx=-1;
+  if(shuffleBtn){
+    shuffleBtn.addEventListener("click", function(){
+      if(!RANKED.length) return;
+      var idx=lastIdx;
+      for(var tries=0;tries<12 && idx===lastIdx;tries++){ idx=Math.floor(Math.random()*RANKED.length); }
+      lastIdx=idx;
+      var cand=RANKED[idx];
+      renderCard(cand,(cand.d[0]+cand.d[1]+cand.d[2]+cand.d[3])/4, idx+1);
+    });
+  }
+  // 数字与数据同步（避免硬编码过期）
+  function setTxt(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+  setTxt("statTotal", SCHOOLS.length);
+  setTxt("statRanked", RANKED.length);
+  setTxt("labRanked", RANKED.length);
+  setTxt("chartRanked", RANKED.length);
+  setTxt("issueRanked", RANKED.length);
+})();
+</script>
+
+</body></html>
