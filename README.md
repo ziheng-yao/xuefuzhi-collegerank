@@ -101,7 +101,7 @@
 - QS：世界大学排名
 - 校友会：中国大学排名
 - 国家统计局：中国城市统计年鉴
-- [CollegesChat](https://github.com/CollegesChat/university-information)：大学生生活质量问卷数据
+- [university-information](https://github.com/CollegesChat/university-information)：大学生生活质量问卷数据
 
 ---
 
