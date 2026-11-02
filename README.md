@@ -22,7 +22,9 @@
 
 ## 快速访问
 
-点击[跳转](https://ziheng-yao.github.io/xuefuzhi-collegerank/)
+- 首页：[点击跳转](https://ziheng-yao.github.io/xuefuzhi-collegerank/)
+- 排名页：[ranking.html](https://ziheng-yao.github.io/xuefuzhi-collegerank/ranking.html)
+- 关于：[method.html](https://ziheng-yao.github.io/xuefuzhi-collegerank/method.html)
 
 ---
 
