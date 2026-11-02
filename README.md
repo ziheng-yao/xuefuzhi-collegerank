@@ -101,7 +101,7 @@
 - QS：世界大学排名
 - 校友会：中国大学排名
 - 国家统计局：中国城市统计年鉴
-- [CollegesChat](https://github.com/CollegesChat/university-information)：大学生生活质量问卷
+- [CollegesChat](https://github.com/CollegesChat/university-information)：大学生生活质量问卷数据
 
 ---
 
@@ -115,6 +115,4 @@
 
 ## License
 
-代码与设计采用 [MIT License](LICENSE)。
-
-院校数据、榜单与统计资料版权归原始发布方所有，本项目仅做整理与展示，使用请遵循各来源的授权与引用要求。
+代码与设计采用 [MIT](LICENSE)。
