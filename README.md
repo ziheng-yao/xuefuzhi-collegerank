@@ -20,6 +20,12 @@
 
 ---
 
+## 快速访问
+
+点击[跳转]（https://ziheng-yao.github.io/xuefuzhi-collegerank/）
+
+---
+
 ## 功能
 
 ### 首页
