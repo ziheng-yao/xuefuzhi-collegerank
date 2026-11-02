@@ -8,22 +8,10 @@
 
 ---
 
-## 线上访问
-
-部署完成后替换为你的地址：
-
-- 首页：`https://<你的用户名>.github.io/<仓库名>/`
-- 排名页：`https://<你的用户名>.github.io/<仓库名>/ranking.html`
-- 关于：`https://<你的用户名>.github.io/<仓库名>/method.html`
-
-> 当前仓库为 `ziheng-yao/xuefuzhi-collegrank`，开启 Pages 后地址为：
-> `https://ziheng-yao.github.io/xuefuzhi-collegrank/`
-
----
 
 ## 这是什么
 
-大学排名通常是一张“唯一正确答案”的榜单。学府志认为择校标准因人而异：
+大学排名通常是一张“唯一正确答案”的榜单。而我们认为择校标准因人而异：
 
 - **四个维度**：学科实力 / 综合实力 / 城市能级 / 生活质量
 - **四个独立权重**：0–100%，不必凑成 100%，每个维度下还可展开调子项
@@ -94,42 +82,6 @@
 
 ---
 
-## 本地运行
-
-直接双击 `index.html` 即可；或起一个静态服务器：
-
-```bash
-python -m http.server 8080
-# 打开 http://127.0.0.1:8080
-```
-
----
-
-## 部署（GitHub Pages）
-
-1. 新建 Public 仓库（免费账号 Pages 需要公开仓库）
-2. 上传本目录内容到仓库根目录（**不要**把整个文件夹作为子目录上传，`index.html` 必须在根）
-3. Settings → Pages → Source: **Deploy from a branch** → Branch: `main` → `/(root)` → Save
-4. 等 1–2 分钟，访问 `https://<用户名>.github.io/<仓库名>/`
-5. 部署后把三页 meta 里的 `og:image` 改成绝对 URL，分享卡才会显示图片
-
-也可以用 Netlify / Vercel 拖拽部署：把本目录直接拖入即可，无 Build Command。
-
----
-
-## 数据重建
-
-站点数据来自独立的数据管道（交接包内，不在本仓库）：
-
-```bash
-cd handover/
-python build_schools.py
-# 输出：site/data/schools.js、site/data/schools.json、构建报告.md
-```
-
-输入为 `raw/` 下 8 份原始数据。注意：QS 排名以常量形式内嵌在脚本中，替换 QS 数据需修改脚本。算法与字段说明见 `DATA.md`。
-
----
 
 ## 已知限制
 
